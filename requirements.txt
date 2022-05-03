@@ -1,0 +1,7 @@
+# Install tools required for installing packages from PyPI
+pip>=22.0.4
+setuptools>=62.1.0
+wheel>=0.37.1
+
+# Fix pynsist to this specific version for now
+pynsist==2.7

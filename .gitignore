@@ -1,0 +1,6 @@
+# Ignore build environments
+venv/**
+build/**
+
+# Ignore IDE config for this project
+.idea/**
