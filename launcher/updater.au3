@@ -60,9 +60,9 @@ Func Update_Channel()
 				Initialize_INI()
 				IniWrite("unmanic_updater.ini", "Release_Channel", $sComboRead, "1")
 				If String($iUnmanic_Version[2]) = 0 Then
-					RunWait("python.exe -m pip install unmanic",@ScriptDir&"Python\",@SW_SHOW)
+					RunWait("python.exe -m pip install unmanic",@ScriptDir&"\Python\",@SW_SHOW)
 				Else
-					RunWait("python.exe -m pip install unmanic --upgrade",@ScriptDir&"Python\",@SW_SHOW)
+					RunWait("python.exe -m pip install unmanic --upgrade",@ScriptDir&"\Python\",@SW_SHOW)
 				EndIf
 		EndSwitch
 	WEnd
