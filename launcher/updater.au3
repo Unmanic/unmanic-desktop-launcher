@@ -19,7 +19,7 @@ EndFunc
 Func Update_Channel()
 	$iVersion=FileOpen(@TempDir&"\unmanic_version.txt",$FO_OVERWRITE)
 	FileWriteLine($iVersion,"__main.py__ 0"&@CR)
-	_RunDos(@UserProfileDir&"\AppData\Local\Programs\Unmanic\Python\python.exe -m unmanic1 --version >"&@TempDir&"\unmanic_version.txt" )
+	_RunDos(@UserProfileDir&"\AppData\Local\Programs\Unmanic\Python\python.exe -m unmanic --version >"&@TempDir&"\unmanic_version.txt" )
 	$iVersion=FileOpen(@TempDir&"\unmanic_version.txt",$FO_READ)
 	$iUnmanic_Version = StringSplit(FileReadLine($iVersion, 1), " ")
 	FileDelete(@TempDir&"\unmanic_version.txt")
