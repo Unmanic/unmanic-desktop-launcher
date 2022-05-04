@@ -63,6 +63,7 @@ Func Update_Channel()
 					RunWait("python.exe -m pip install unmanic",@ScriptDir&"Python\",@SW_SHOW)
 				Else
 					RunWait("python.exe -m pip install unmanic --upgrade",@ScriptDir&"Python\",@SW_SHOW)
+				EndIf
 		EndSwitch
 	WEnd
 EndFunc
