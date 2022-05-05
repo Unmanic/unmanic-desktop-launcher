@@ -1,20 +1,21 @@
 $projectPath = (get-item $PSScriptRoot ).parent.FullName
 
 # CONFIG
-$autoitUrl = "https://www.autoitscript.com/cgi-bin/getfile.pl?autoit3/autoit-v3.zip"
+$gitVersionVersion = "5.10.1"
+$gitVersionUrl = "https://github.com/GitTools/GitVersion/releases/download/$gitVersionVersion/gitversion-win-x64-$gitVersionVersion.zip"
 
-# Install build tools
-Write-Output "Fetch AutoIT compiler dependencies"
+# Fetch GitVersion
+Write-Output "Fetch GitVersion"
 Set-Location -Path $projectPath
-if (!(Test-Path "build\autoit-v3.zip")) {
-    Invoke-WebRequest -Uri $autoitUrl -OutFile build\autoit-v3.zip
-    if (Test-Path "$projectPath\build\autoit\install\Aut2Exe\Aut2exe_x64.exe") {
-        Remove-Item -Path "$projectPath\build\autoit\install\Aut2Exe\Aut2exe_x64.exe"
+if (!(Test-Path "build\gitversion-$gitVersionVersion.zip")) {
+    Invoke-WebRequest -Uri $gitVersionUrl -OutFile build\gitversion-$gitVersionVersion.zip
+    if (Test-Path "$projectPath\build\gitversion\gitversion.exe") {
+        Remove-Item -Path "$projectPath\build\gitversion\gitversion.exe"
     }
 }
-if (!(Test-Path "$projectPath\build\autoit\install\Aut2Exe\Aut2exe_x64.exe")) {
-    if (Test-Path "$projectPath\build\autoit") {
-        Remove-Item -Recurse -Force "$projectPath\build\autoit"
+if (!(Test-Path "$projectPath\build\gitversion\gitversion.exe")) {
+    if (Test-Path "$projectPath\build\gitversion") {
+        Remove-Item -Recurse -Force "$projectPath\build\gitversion"
     }
-    Expand-Archive -LiteralPath $projectPath\build\autoit-v3.zip -DestinationPath $projectPath\build\autoit
+    Expand-Archive -LiteralPath $projectPath\build\gitversion-$gitVersionVersion.zip -DestinationPath $projectPath\build\gitversion
 }

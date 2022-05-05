@@ -1,6 +1,7 @@
 # Ignore build environments
 venv/**
 build/**
+installer.configured.cfg
 
 # Ignore IDE config for this project
 .idea/**

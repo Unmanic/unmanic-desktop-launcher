@@ -43,7 +43,13 @@ if (!(Test-Path "$projectPath\build\ffmpeg\ffmpeg.exe")) {
     Expand-Archive -LiteralPath $projectPath\build\jellyfin-ffmpeg-$ffmpegVersion.zip -DestinationPath $projectPath\build\ffmpeg
 }
 
-# Pack project
-Write-Output "Pack project"
+# Set project version
+Write-Output "Set project version"
 Set-Location -Path $projectPath
-python -m nsist installer.cfg
+$semVer = build\gitversion\gitversion.exe /showvariable SemVer
+(Get-Content installer.cfg) -Replace 'version=0.0.1', "version=$semVer" | Set-Content installer.configured.cfg
+
+# Pack project
+Write-Output "Pack project v$semVer"
+Set-Location -Path $projectPath
+python -m nsist installer.configured.cfg
