@@ -11,10 +11,9 @@
 #include <TrayConstants.au3>
 #include <Inet.au3>
 #include <Process.au3>
-;FileInstall("updater.exe",@ScriptDir & "\updater.exe")
 Opt("TrayMenuMode", 3)
 $iUnmanic_PID=0
-$iUnmanic_PID=ShellExecute(@ScriptDir&"\Python\python.exe", @ScriptDir&"\service.py","","",@SW_HIDE)
+$iUnmanic_PID=ShellExecute(@ScriptDir&"\Python\python.exe","service.py",@ScriptDir,"",@SW_HIDE)
 Tray_Menu()
 
 Func Tray_Menu()
@@ -54,7 +53,7 @@ Func Tray_Menu()
 							Run("updater.exe")
 						Case $iStart_Unmanic
 							If $iUnmanic_PID = 0 Then
-								$iUnmanic_PID=ShellExecute(@ScriptDir&"\Python\python.exe", @ScriptDir&"\service.py","","",@SW_HIDE)
+								$iUnmanic_PID=ShellExecute(@ScriptDir&"\Python\python.exe","service.py",@ScriptDir,"",@SW_HIDE)
 							Else
 								MsgBox(0,"Error","Unmanic is already running with a PID of "& $iUnmanic_PID)
 							EndIf
