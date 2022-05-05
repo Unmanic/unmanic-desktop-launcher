@@ -4,6 +4,11 @@ $projectPath = (get-item $PSScriptRoot ).parent.FullName
 $ffmpegVersion = "4.4.1-3"
 $ffmpegUrl = "https://repo.jellyfin.org/releases/server/windows/versions/jellyfin-ffmpeg/4.4.1-3/jellyfin-ffmpeg_4.4.1-3-windows_win64.zip"
 
+# Ensure the dependencies directory exists
+if (!(Test-Path "build\dependencies")) {
+    New-Item build\dependencies -ItemType Directory
+    Write-Host "Tools directory created successfully"
+}
 
 # Create venv
 Write-Output "Setup Python build environment"
@@ -21,32 +26,32 @@ python -m pip install --upgrade -r requirements.txt
 # Create wheels for all Unmanic Launcher dependencies
 Write-Output "Create wheels for all Unmanic Launcher dependencies"
 Set-Location -Path $projectPath
-if (Test-Path "$projectPath\build\dependencies") {
-    Remove-Item -Recurse -Force "$projectPath\build\dependencies"
+if (Test-Path "$projectPath\build\dependencies\wheels") {
+    Remove-Item -Recurse -Force "$projectPath\build\dependencies\wheels"
 }
-python -m pip wheel --wheel-dir build\dependencies -r requirements.txt
+python -m pip wheel --wheel-dir build\dependencies\wheels -r requirements.txt
 
 
 # Fetch FFmpeg
 Write-Output "Fetch FFmpeg"
 Set-Location -Path $projectPath
-if (!(Test-Path "build\jellyfin-ffmpeg-$ffmpegVersion.zip")) {
-    Invoke-WebRequest -Uri $ffmpegUrl -OutFile build\jellyfin-ffmpeg-$ffmpegVersion.zip
-    if (Test-Path "$projectPath\build\ffmpeg\ffmpeg.exe") {
-        Remove-Item -Path "$projectPath\build\ffmpeg\ffmpeg.exe"
+if (!(Test-Path "build\dependencies\jellyfin-ffmpeg-$ffmpegVersion.zip")) {
+    Invoke-WebRequest -Uri $ffmpegUrl -OutFile build\dependencies\jellyfin-ffmpeg-$ffmpegVersion.zip
+    if (Test-Path "$projectPath\build\dependencies\ffmpeg\ffmpeg.exe") {
+        Remove-Item -Path "$projectPath\build\dependencies\ffmpeg\ffmpeg.exe"
     }
 }
-if (!(Test-Path "$projectPath\build\ffmpeg\ffmpeg.exe")) {
-    if (Test-Path "$projectPath\build\ffmpeg") {
-        Remove-Item -Recurse -Force "$projectPath\build\ffmpeg"
+if (!(Test-Path "$projectPath\build\dependencies\ffmpeg\ffmpeg.exe")) {
+    if (Test-Path "$projectPath\build\dependencies\ffmpeg") {
+        Remove-Item -Recurse -Force "$projectPath\build\dependencies\ffmpeg"
     }
-    Expand-Archive -LiteralPath $projectPath\build\jellyfin-ffmpeg-$ffmpegVersion.zip -DestinationPath $projectPath\build\ffmpeg
+    Expand-Archive -LiteralPath $projectPath\build\dependencies\jellyfin-ffmpeg-$ffmpegVersion.zip -DestinationPath $projectPath\build\dependencies\ffmpeg
 }
 
 # Set project version
 Write-Output "Set project version"
 Set-Location -Path $projectPath
-$semVer = build\gitversion\gitversion.exe /showvariable SemVer
+$semVer = build\tools\gitversion\gitversion.exe /showvariable SemVer
 (Get-Content installer.cfg) -Replace 'version=0.0.1', "version=$semVer" | Set-Content installer.configured.cfg
 
 # Pack project
