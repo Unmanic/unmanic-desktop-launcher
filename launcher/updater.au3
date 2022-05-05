@@ -50,7 +50,6 @@ Func Update_Channel()
 		Initialize_INI()
 	EndIf
 	While 1
-		;sleep(100)
 		$nMsg = GUIGetMsg()
 		Switch $nMsg
 			Case $GUI_EVENT_CLOSE
@@ -60,9 +59,9 @@ Func Update_Channel()
 				Initialize_INI()
 				IniWrite("unmanic_updater.ini", "Release_Channel", $sComboRead, "1")
 				If String($iUnmanic_Version[2]) = 0 Then
-					RunWait("python.exe -m pip install unmanic",@ScriptDir&"\Python\",@SW_SHOW)
+					ShellExecute(@ScriptDir&"\Python\python.exe","pip.py install unmanic",@ScriptDir,"",@SW_SHOW)
 				Else
-					RunWait("python.exe -m pip install unmanic --upgrade",@ScriptDir&"\Python\",@SW_SHOW)
+					ShellExecute(@ScriptDir&"\Python\python.exe","pip.py --upgrade unmanic",@ScriptDir,"",@SW_SHOW)
 				EndIf
 		EndSwitch
 	WEnd
