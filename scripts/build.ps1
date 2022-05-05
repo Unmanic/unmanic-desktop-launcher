@@ -43,26 +43,6 @@ if (!(Test-Path "$projectPath\build\ffmpeg\ffmpeg.exe")) {
     Expand-Archive -LiteralPath $projectPath\build\jellyfin-ffmpeg-$ffmpegVersion.zip -DestinationPath $projectPath\build\ffmpeg
 }
 
-
-# Build Launcher
-Set-Location -Path $projectPath
-if (Test-Path "$projectPath\build\updater.au3") {
-    Remove-Item -Recurse -Force "$projectPath\build\updater.au3"
-}
-Copy-Item "launcher\updater.au3" -Destination "build\updater.au3"
-if (Test-Path "$projectPath\build\UnmanicLauncher.au3") {
-    Remove-Item -Recurse -Force "$projectPath\build\UnmanicLauncher.au3"
-}
-Copy-Item "launcher\UnmanicLauncher.au3" -Destination "build\UnmanicLauncher.au3"
-if (Test-Path "$projectPath\build\unmanic.ico") {
-    Remove-Item -Recurse -Force "$projectPath\build\unmanic.ico"
-}
-Copy-Item "launcher\unmanic.ico" -Destination "build\unmanic.ico"
-Set-Location -Path $projectPath\build
-autoit\install\Aut2Exe\Aut2exe_x64.exe /in updater.au3 /out updater.exe
-autoit\install\Aut2Exe\Aut2exe_x64.exe /in UnmanicLauncher.au3 /out UnmanicLauncher.exe /icon unmanic.ico
-
-
 # Pack project
 Write-Output "Pack project"
 Set-Location -Path $projectPath

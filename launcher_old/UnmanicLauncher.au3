@@ -12,8 +12,11 @@
 #include <Inet.au3>
 #include <Process.au3>
 Opt("TrayMenuMode", 3)
+
+
 $iUnmanic_PID=0
-$iUnmanic_PID=ShellExecute(@ScriptDir&"\Python\python.exe","service.py",@ScriptDir,"",@SW_HIDE)
+$iUnmanic_PID=ShellExecute(@ScriptDir&"\Python\python.exe","-m unmanic",@ScriptDir,"",@SW_HIDE)
+
 Tray_Menu()
 
 Func Tray_Menu()
