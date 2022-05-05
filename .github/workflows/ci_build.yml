@@ -1,0 +1,47 @@
+name: Build Launcher
+
+on:
+  push:
+    branches: [ 'dev-**', 'pr-**', staging, master ]
+    tags: [ '**' ]
+    paths-ignore:
+      - '.github/**'
+      - '!.github/workflows/**'
+      - '*.md'
+  pull_request:
+    branches: [ staging, master ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      # Install NSIS
+      - name: Install NSIS
+        run: |
+          Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh')
+          scoop bucket add extras
+          scoop install nsis
+      - name: Print NSIS version
+        run: makensis -VERSION
+      - name: Print NSIS compile flags
+        run: makensis -HDRINFO
+
+      # Install libsqlite3
+      - name: install sqlite
+        run: choco install sqlite
+
+      # Install Python
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.7
+      - name: Display Python version
+        run: python --version
+
+      # Execute project build script
+      - name: Build
+        shell: pwsh
+        run: |
+          .\scripts\build.ps1
