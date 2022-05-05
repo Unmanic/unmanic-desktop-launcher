@@ -19,10 +19,7 @@ jobs:
 
       # Install NSIS
       - name: Install NSIS
-        run: |
-          Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh')
-          scoop bucket add extras
-          scoop install nsis
+        run: choco install nsis -y
       - name: Print NSIS version
         run: makensis -VERSION
       - name: Print NSIS compile flags
