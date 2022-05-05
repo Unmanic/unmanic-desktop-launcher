@@ -46,4 +46,4 @@ if (!(Test-Path "$projectPath\build\ffmpeg\ffmpeg.exe")) {
 # Pack project
 Write-Output "Pack project"
 Set-Location -Path $projectPath
-python -m nsist installer.cfg --no-makensis
+python -m nsist installer.cfg
