@@ -42,3 +42,9 @@ jobs:
         shell: pwsh
         run: |
           .\scripts\build.ps1
+
+      # Publish artifacts built in this pipeline
+      - uses: actions/upload-artifact@v3
+        with:
+          name: UnmanicLauncherInstaller
+          path: build\nsis\UnmanicLauncher*.exe
