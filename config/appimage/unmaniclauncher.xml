@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+    <id>unmanic</id>
+    <metadata_license>GPLv3</metadata_license>
+    <project_license>GPLv3</project_license>
+    <name>UnmanicLauncher</name>
+    <summary>Unmanic</summary>
+    <description>
+        <p>  Python {{ python-fullversion }} with the Unmanic Launcher
+             bundled in an AppImage.
+        </p>
+    </description>
+    <launchable type="desktop-id">unmanic.desktop</launchable>
+    <url type="homepage">https://github.com/Unmanic/unmanic-launcher/</url>
+    <provides>
+        <binary>python{{ python-version }}</binary>
+    </provides>
+</component>

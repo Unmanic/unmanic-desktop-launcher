@@ -1,6 +1,13 @@
 # Ignore build environments
 venv/**
 build/**
+dist/**
+installer.configured.cfg
 
 # Ignore IDE config for this project
 .idea/**
+
+# Ignore temp files
+**/__pycache__
+launcher/version.txt
+launcher.egg-info
