@@ -52,9 +52,9 @@ if (!(Test-Path "$projectPath\build\dependencies\ffmpeg\ffmpeg.exe")) {
 Write-Output "Set project version"
 Set-Location -Path $projectPath
 $semVer = build\tools\gitversion\gitversion.exe /showvariable SemVer
-(Get-Content config\windows\installer.cfg ) -Replace 'version=0.0.1', "version=$semVer" | Set-Content build\installer.configured.cfg
+(Get-Content config\windows\installer.cfg ) -Replace 'version=0.0.1', "version=$semVer" | Set-Content installer.configured.cfg
 
 # Pack project
 Write-Output "Pack project v$semVer"
 Set-Location -Path $projectPath
-python -m nsist build\installer.configured.cfg
+python -m nsist installer.configured.cfg

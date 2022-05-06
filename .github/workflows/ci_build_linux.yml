@@ -40,7 +40,7 @@ jobs:
             ${{ runner.os }}-build-dependencies-lin-
 
       # Install build local dependencies
-      - name: Build
+      - name: Install build dependencies
         run: |
           ./scripts/install-tools-linux.sh
           sudo apt-get install -y pkg-config libcairo2-dev gcc python3-dev libgirepository1.0-dev

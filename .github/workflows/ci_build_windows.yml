@@ -51,7 +51,7 @@ jobs:
             ${{ runner.os }}-build-dependencies-win-
 
       # Install build local dependencies
-      - name: Build
+      - name: Install build dependencies
         shell: pwsh
         run: |
           .\scripts\install-tools.ps1
