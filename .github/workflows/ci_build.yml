@@ -111,9 +111,9 @@ jobs:
         id: build-step
         run: |
           ./scripts/build-linux.sh
-          semVer=build/tools/gitversion/gitversion /showvariable FullSemVer
+          semVer=$(build/tools/gitversion/gitversion /showvariable FullSemVer)
           if [[ ${GITHUB_REF#refs/*/} == 'master' ]]; then
-            semVer=build/tools/gitversion/gitversion /showvariable SemVer
+            semVer=$(build/tools/gitversion/gitversion /showvariable SemVer)
           fi
           mkdir -p dist
           mv -v build/UnmanicLauncher-x86_64.AppImage dist/UnmanicLauncher-${semVer}-x86_64.AppImage
