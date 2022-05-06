@@ -13,7 +13,7 @@ on:
 
 jobs:
   BuildAppImage:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       # Checkout the full history (required for GitVersion to work)
       - name: Checkout
@@ -43,18 +43,13 @@ jobs:
       - name: Build
         run: |
           ./scripts/install-tools-linux.sh
+          sudo apt-get install -y pkg-config libcairo2-dev gcc python3-dev libgirepository1.0-dev
 
       # Execute project build script
       - name: Build
         id: build-step
         shell: pwsh
         run: |
-          apt-get install \
-              pkg-config \
-              libcairo2-dev \
-              gcc \
-              python3-dev \
-              libgirepository1.0-dev
           ./scripts/build-linux.sh
           $semVer=build/tools/gitversion/gitversion /showvariable SemVer
           mv -v build/UnmanicLauncher-x86_64.AppImage build/UnmanicLauncher-${semVer}-x86_64.AppImage 
