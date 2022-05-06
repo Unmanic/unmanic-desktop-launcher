@@ -5,9 +5,9 @@ $ffmpegVersion = "4.4.1-3"
 $ffmpegUrl = "https://repo.jellyfin.org/releases/server/windows/versions/jellyfin-ffmpeg/4.4.1-3/jellyfin-ffmpeg_4.4.1-3-windows_win64.zip"
 
 # Ensure the dependencies directory exists
-if (!(Test-Path "build\dependencies")) {
-    New-Item build\dependencies -ItemType Directory
-    Write-Host "Tools directory created successfully"
+if (!(Test-Path "$projectPath\build\dependencies")) {
+    New-Item $projectPath\build\dependencies -ItemType Directory
+    Write-Host "Dependencies directory created successfully"
 }
 
 # Create venv
@@ -20,7 +20,7 @@ if (!(Test-Path "$projectPath\venv")) {
 # Activate the venv
 .\venv\Scripts\Activate.ps1
 # Install Unmanic Launcher Python dependencies
-python -m pip install --upgrade -r requirements.txt
+python -m pip install --upgrade -r requirements.txt -r requirements-dev.txt
 
 
 # Create wheels for all Unmanic Launcher dependencies

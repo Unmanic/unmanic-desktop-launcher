@@ -12,7 +12,7 @@ on:
     branches: [ staging, master ]
 
 jobs:
-  build:
+  BuildNSIS:
     runs-on: windows-latest
     steps:
       # Checkout the full history (required for GitVersion to work)
@@ -46,9 +46,9 @@ jobs:
         uses: actions/cache@v3
         with:
           path: build/dependencies
-          key: ${{ runner.os }}-build-dependencies-${{ hashFiles('build\dependencies\**') }}
+          key: ${{ runner.os }}-build-dependencies-win-${{ hashFiles('build\dependencies\**') }}
           restore-keys: |
-            ${{ runner.os }}-build-dependencies-
+            ${{ runner.os }}-build-dependencies-win-
 
       # Install build local dependencies
       - name: Build

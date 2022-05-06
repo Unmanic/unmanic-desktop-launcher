@@ -1,0 +1,3 @@
+# Build tools
+# Fix pynsist to this specific version for now
+pynsist==2.7

@@ -1,6 +1,4 @@
-# Build tools
-# Fix pynsist to this specific version for now
-pynsist==2.7
+# Globally required dependencies
 
 # Install tools required for installing packages from PyPI
 pip>=22.0.4
@@ -8,7 +6,9 @@ setuptools>=62.1.0
 wheel>=0.37.1
 
 # Packages for tray icon and windows
-pystray==0.19.2
+vext==0.7.6
+vext.gi==0.7.4
+pystray==0.19.3
 pyqt5==5.15.6
 pyqt5-qt5==5.15.2
 pyqt5-sip==12.9.0
