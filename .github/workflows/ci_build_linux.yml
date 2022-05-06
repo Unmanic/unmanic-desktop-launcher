@@ -1,4 +1,4 @@
-name: Build Launcher for Windows
+name: Build Launcher for Linux
 
 on:
   push:
@@ -12,8 +12,8 @@ on:
     branches: [ staging, master ]
 
 jobs:
-  BuildWindows:
-    runs-on: windows-latest
+  BuildAppImage:
+    runs-on: ubuntu-latest
     steps:
       # Checkout the full history (required for GitVersion to work)
       - name: Checkout
@@ -21,23 +21,12 @@ jobs:
         with:
           fetch-depth: 0
 
-      # Install NSIS
-      - name: Install NSIS
-        run: choco install nsis -y
-      - name: Print NSIS version
-        run: makensis -VERSION
-      - name: Print NSIS compile flags
-        run: makensis -HDRINFO
-
-      # Install libsqlite3
-      - name: install sqlite
-        run: choco install sqlite
-
       # Install Python
       - name: Set up Python
         uses: actions/setup-python@v3
         with:
-          python-version: 3.7
+          # Build AppImage with Python 3.8 (same as the output will be)
+          python-version: 3.8
       - name: Display Python version
         run: python --version
 
@@ -46,27 +35,33 @@ jobs:
         uses: actions/cache@v3
         with:
           path: build/dependencies
-          key: ${{ runner.os }}-build-dependencies-win-${{ hashFiles('build\dependencies\**') }}
+          key: ${{ runner.os }}-build-dependencies-lin-${{ hashFiles('build/dependencies/**') }}
           restore-keys: |
-            ${{ runner.os }}-build-dependencies-win-
+            ${{ runner.os }}-build-dependencies-lin-
 
       # Install build local dependencies
       - name: Build
-        shell: pwsh
         run: |
-          .\scripts\install-tools.ps1
+          ./scripts/install-tools-linux.sh
 
       # Execute project build script
       - name: Build
         id: build-step
         shell: pwsh
         run: |
-          .\scripts\build.ps1
-          $semVer = build\tools\gitversion\gitversion.exe /showvariable SemVer
-          Write-Output "::set-output name=BUILD_VERSION::$semVer"
+          apt-get install \
+              pkg-config \
+              libcairo2-dev \
+              gcc \
+              python3-dev \
+              libgirepository1.0-dev
+          ./scripts/build-linux.sh
+          $semVer=build/tools/gitversion/gitversion /showvariable SemVer
+          mv -v build/UnmanicLauncher-x86_64.AppImage build/UnmanicLauncher-${semVer}-x86_64.AppImage 
+          echo "::set-output name=BUILD_VERSION::${semVer}"
 
       # Publish artifacts built in this pipeline
       - uses: actions/upload-artifact@v3
         with:
-          name: UnmanicLauncherInstaller-${{ steps.build-step.outputs.BUILD_VERSION }}
-          path: build\nsis\UnmanicLauncher*.exe
+          name: UnmanicLauncher-${{ steps.build-step.outputs.BUILD_VERSION }}-x86_64.AppImage
+          path: build/UnmanicLauncher-${{ steps.build-step.outputs.BUILD_VERSION }}-x86_64.AppImage

@@ -1,0 +1,3 @@
+# AppImage only dependencies
+gobject==0.1.0
+PyGObject==3.42.1

@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=UnmanicLauncher
+Exec=launcher
+Comment=Unmanic Launcher
+Icon=unmaniclauncher
+Categories=System;
+Terminal=true
