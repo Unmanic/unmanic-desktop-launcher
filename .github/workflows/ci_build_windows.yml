@@ -12,7 +12,7 @@ on:
     branches: [ staging, master ]
 
 jobs:
-  BuildNSIS:
+  BuildWindows:
     runs-on: windows-latest
     steps:
       # Checkout the full history (required for GitVersion to work)
