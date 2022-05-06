@@ -62,9 +62,9 @@ jobs:
         run: |
           .\scripts\build.ps1
           $semVer = build\tools\gitversion\gitversion.exe /showvariable SemVer
-          New-Item $projectPath\dist -ItemType Directory
+          New-Item dist -ItemType Directory
           Move-Item -Path build\nsis\UnmanicLauncher*.exe -Destination $projectPath\dist
-          Out-File -FilePath dist\VERSION.txt -InputObject $semVer
+          $semVer | Out-File dist\VERSION.tx
           Write-Output "::set-output name=BUILD_VERSION::$semVer"
 
       # Publish artifacts built in this pipeline
