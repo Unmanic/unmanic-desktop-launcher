@@ -19,6 +19,7 @@
            OR OTHER DEALINGS IN THE SOFTWARE.
 
 """
+import json
 import os
 import webbrowser
 
@@ -105,21 +106,34 @@ class UnmanicLauncher:
         """Display the updater window"""
         pass
 
+    def check_unmanic_installed(self):
+        """Check if Unmanic is installed"""
+        command = [
+            common.python_exe, '-c',
+            'import pkg_resources; import json; print(json.dumps([pkg.key for pkg in pkg_resources.working_set]))'
+        ]
+        proc, sp = common.exec_process(command)
+        self.other_procs.append(proc)
+        text = ' '.join(sp.stdout.readlines())
+        installed_packages = json.loads(text)
+        if 'unmanic' in installed_packages:
+            return True
+        return False
+
     def start_unmanic(self):
         """Start the main Unmanic service"""
         if self.unmanic_proc is not None:
             # Unmanic is already running
             return
-        try:
-            # Ensure the module is installed
-            import unmanic
-            # Run Unmanic as a subprocess
-            subprocess_command = [common.python_exe, '-m', 'unmanic']
-            self.unmanic_proc, sp = common.exec_process(subprocess_command)
-        except ModuleNotFoundError:
+        # Ensure the module is installed
+        if not self.check_unmanic_installed():
             # Unmanic is not yet installed
             # Install it...
             self.display_updater()
+            return
+        # Run Unmanic as a subprocess
+        subprocess_command = [common.python_exe, '-m', 'unmanic']
+        self.unmanic_proc, sp = common.exec_process(subprocess_command)
 
     def stop_unmanic(self):
         """Terminate the main Unmanic process"""
@@ -175,7 +189,7 @@ class UnmanicLauncher:
         # Create icon
         self.create_icon()
         # Start Unmanic
-        #self.start_unmanic()
+        self.start_unmanic()
         # Create tray icon
         self.icon.run()
         # Stop Unmanic
