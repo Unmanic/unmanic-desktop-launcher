@@ -162,6 +162,7 @@ jobs:
         with:
           automatic_release_tag: v${{ steps.dist-data-step.outputs.BUILD_VERSION }}
           title: Release v${{ steps.dist-data-step.outputs.BUILD_VERSION }}
+          prerelease: true
           files: |
             dist/*.exe
             dist/*.AppImage
