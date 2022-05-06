@@ -6,9 +6,12 @@ import psutil
 
 module_root = os.path.abspath(os.path.dirname(os.path.realpath(__file__)))
 project_root = os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__)), '..', '..'))
-python_exe = os.environ['_']
+# Set path to Python executable
 if os.name == "nt":
     python_exe = os.path.join(project_root, 'Python', 'python.exe')
+else:
+    python_exe = os.environ['_']
+# Set path to FFmpeg executable
 ffmpeg_path = 'ffmpeg'
 if os.name == "nt":
     ffmpeg_path = os.path.join(project_root, 'ffmpeg')
