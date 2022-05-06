@@ -63,8 +63,8 @@ jobs:
           .\scripts\build.ps1
           $semVer = build\tools\gitversion\gitversion.exe /showvariable SemVer
           New-Item dist -ItemType Directory
-          Move-Item -Path build\nsis\UnmanicLauncher*.exe -Destination $projectPath\dist
-          $semVer | Out-File dist\VERSION.tx
+          Move-Item -Path build\nsis\UnmanicLauncher*.exe -Destination dist
+          $semVer | Out-File dist\VERSION.txt
           Write-Output "::set-output name=BUILD_VERSION::$semVer"
 
       # Publish artifacts built in this pipeline
@@ -129,8 +129,7 @@ jobs:
   Release:
     needs: [ BuildWindows, BuildAppImage ]
     runs-on: ubuntu-latest
-    # TODO: Limit to master only
-    #if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/master'
     steps:
       # Fetch Windows artifacts
       - name: Download AppImage Artifacts
@@ -164,5 +163,6 @@ jobs:
           automatic_release_tag: v${{ steps.dist-data-step.outputs.BUILD_VERSION }}
           title: Release v${{ steps.dist-data-step.outputs.BUILD_VERSION }}
           files: |
+            dist/*.exe
             dist/*.AppImage
           repo_token: ${{ secrets.GITHUB_TOKEN }}
