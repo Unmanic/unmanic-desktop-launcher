@@ -6,12 +6,14 @@ setuptools>=62.1.0
 wheel>=0.37.1
 
 # Packages for tray icon and windows
-vext==0.7.6
-vext.gi==0.7.4
+# - All
 pystray==0.19.3
 pyqt5==5.15.6
 pyqt5-qt5==5.15.2
 pyqt5-sip==12.9.0
+# - AppImage
+gobject==0.1.0
+PyGObject==3.42.1
 
 # Unmanic dependencies
 # - Required

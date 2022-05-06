@@ -8,3 +8,5 @@ installer.configured.cfg
 
 # Ignore temp files
 **/__pycache__
+launcher/version.txt
+launcher.egg-info

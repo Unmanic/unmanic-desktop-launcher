@@ -1,3 +1,4 @@
 # Build tools
 # Fix pynsist to this specific version for now
 pynsist==2.7
+python_appimage==1.0.2

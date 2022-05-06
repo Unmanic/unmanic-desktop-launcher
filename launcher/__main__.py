@@ -9,7 +9,9 @@
 # Last Modified: Thursday, 28th April 2022 3:22:58 pm
 # Modified By: Josh.5 (jsunnex@gmail.com)
 ###
+# python3 -m launcher
 import argparse
+from .tray import UnmanicLauncher
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Process some integers.')
@@ -18,5 +20,6 @@ if __name__ == "__main__":
     if args.updater:
         from .updater import show_window
         show_window()
-    #else:
-    #    main()
+    else:
+        launcher = UnmanicLauncher()
+        launcher.run()
