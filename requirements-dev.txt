@@ -1,4 +1,4 @@
 # Build tools
 # Fix pynsist to this specific version for now
-pynsist==2.7
+pynsist==2.8
 python_appimage==1.0.2

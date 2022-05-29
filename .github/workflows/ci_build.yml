@@ -61,6 +61,7 @@ jobs:
         shell: pwsh
         run: |
           .\scripts\build.ps1
+          makensis .\build\nsis\installer.nsi
           $semVer = build\tools\gitversion\gitversion.exe /showvariable SemVer
           New-Item dist -ItemType Directory
           Move-Item -Path build\nsis\UnmanicLauncher*.exe -Destination dist

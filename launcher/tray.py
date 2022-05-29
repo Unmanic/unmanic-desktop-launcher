@@ -32,7 +32,9 @@ from PIL import Image
 
 from . import common
 
-os.environ['PATH'] += ';' + common.ffmpeg_path
+if os.name == "nt":
+    os.environ['PATH'] += ';' + common.ffmpeg_path
+    os.environ['PATH'] += ';' + common.node_path
 
 
 class UnmanicLauncher:

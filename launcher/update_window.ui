@@ -18,27 +18,30 @@
     <item>
      <widget class="QGroupBox" name="groupBox">
       <property name="title">
-       <string>Click things</string>
+       <string>Select an update channel</string>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
         <widget class="QRadioButton" name="radio_1">
          <property name="text">
-          <string>Thing 1</string>
+          <string>Stable</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QRadioButton" name="radio_2">
          <property name="text">
-          <string>Thing 2</string>
+          <string>Beta</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QPushButton" name="add_button">
          <property name="text">
-          <string>Add to list</string>
+          <string>Download/Install Updates</string>
          </property>
         </widget>
        </item>
@@ -59,31 +62,21 @@
      </widget>
     </item>
     <item>
-     <widget class="QListWidget" name="listWidget"/>
+     <widget class="QListWidget" name="listWidget">
+      <item>
+       <property name="text">
+        <string>Select an update channel and then click &quot;Download/Install Updates&quot;</string>
+       </property>
+      </item>
+     </widget>
     </item>
    </layout>
   </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>393</width>
-     <height>24</height>
-    </rect>
-   </property>
-   <widget class="QMenu" name="menuFile">
-    <property name="title">
-     <string>File</string>
-    </property>
-    <addaction name="actionNew"/>
-    <addaction name="actionOpen"/>
-    <addaction name="actionSave"/>
-   </widget>
-   <addaction name="menuFile"/>
-  </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionNew">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>New</string>
    </property>

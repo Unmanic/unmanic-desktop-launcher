@@ -11,17 +11,5 @@ pystray==0.19.3
 pyqt5==5.15.6
 pyqt5-qt5==5.15.2
 pyqt5-sip==12.9.0
-
-# Unmanic dependencies
-# - Required
-schedule==0.6.0
-tornado==6.0.2
-marshmallow==3.13.0
-peewee>=3.14.4
-peewee_migrate==1.1.6
 psutil==5.8.0
 requests>=2.25.1
-requests_toolbelt>=0.9.1
-py-cpuinfo>=7.0.0
-# - Optional
-watchdog>=2.1.1

@@ -4,7 +4,11 @@
 - Display a tray icon in your task bar
 
 ## Install
-(TBD)
+
+### Windows
+Download the [latest release](https://github.com/Unmanic/unmanic-desktop-launcher/releases)
+
+Run the executable
 
 ## Build
 
@@ -17,13 +21,16 @@ Or installation via another means.
 #### Install nsis v3
 https://nsis.sourceforge.io/Download
 
-#### Install AutoIT
-(TBD)
-
 
 ### Build project
-
 To build the project, run:
 ```
 scripts\build.ps1
+```
+
+## Develop
+Start by running through the build steps listed above
+To create a development environment for this, run:
+```
+scripts\dev.ps1
 ```

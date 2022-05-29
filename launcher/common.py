@@ -15,6 +15,10 @@ else:
 ffmpeg_path = 'ffmpeg'
 if os.name == "nt":
     ffmpeg_path = os.path.join(project_root, 'ffmpeg')
+# Set path to NodeJS executables
+node_path = 'node'
+if os.name == "nt":
+    node_path = os.path.join(project_root, 'node')
 
 
 def exec_process(subprocess_command: list):

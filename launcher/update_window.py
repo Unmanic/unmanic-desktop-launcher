@@ -8,6 +8,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -24,6 +25,7 @@ class Ui_MainWindow(object):
 
         self.radio_1 = QtWidgets.QRadioButton(self.groupBox)
         self.radio_1.setObjectName("radio_1")
+        self.radio_1.setChecked(True)
         self.verticalLayout.addWidget(self.radio_1)
         self.radio_2 = QtWidgets.QRadioButton(self.groupBox)
         self.radio_2.setObjectName("radio_2")
@@ -39,6 +41,8 @@ class Ui_MainWindow(object):
         self.listWidget.setObjectName("listWidget")
         self.horizontalLayout.addWidget(self.listWidget)
         MainWindow.setCentralWidget(self.centralwidget)
+
+        QtWidgets.QListWidgetItem('Select an update channel!', self.listWidget)
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
