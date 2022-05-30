@@ -5,6 +5,8 @@ $ffmpegVersion = "4.4.1-3"
 $ffmpegUrl = "https://repo.jellyfin.org/releases/server/windows/versions/jellyfin-ffmpeg/4.4.1-3/jellyfin-ffmpeg_4.4.1-3-windows_win64.zip"
 $nodeVersion = "16.15.0"
 $nodeUrl = "https://nodejs.org/dist/v$nodeVersion/node-v$nodeVersion-win-x64.zip"
+$gitVersion = "2.36.1"
+$gitUrl = "https://github.com/git-for-windows/git/releases/download/v$gitVersion.windows.1/MinGit-$gitVersion-64-bit.zip"
 
 # Ensure the dependencies directory exists
 if (!(Test-Path "$projectPath\build\dependencies")) {
@@ -32,6 +34,23 @@ if (Test-Path "$projectPath\build\dependencies\wheels") {
     Remove-Item -Recurse -Force "$projectPath\build\dependencies\wheels"
 }
 python -m pip wheel --wheel-dir build\dependencies\wheels -r requirements.txt
+
+
+# Fetch GIT
+Write-Output "Fetch GIT"
+Set-Location -Path $projectPath
+if (!(Test-Path "build\dependencies\MinGit-$gitVersion-64-bit.zip")) {
+    Invoke-WebRequest -Uri $gitUrl -OutFile build\dependencies\MinGit-$gitVersion-64-bit.zip
+    if (Test-Path "$projectPath\build\dependencies\git\cmd\git.exe") {
+        Remove-Item -Path "$projectPath\build\dependencies\git\cmd\git.exe"
+    }
+}
+if (!(Test-Path "$projectPath\build\dependencies\git\cmd\git.exe")) {
+    if (Test-Path "$projectPath\build\dependencies\git") {
+        Remove-Item -Recurse -Force "$projectPath\build\dependencies\git"
+    }
+    Expand-Archive -LiteralPath $projectPath\build\dependencies\MinGit-$gitVersion-64-bit.zip -DestinationPath $projectPath\build\dependencies\git
+}
 
 
 # Fetch NodeJS
@@ -87,4 +106,4 @@ python -m nsist installer.configured.cfg --no-makensis
 # Print next steps
 $makensisPath = (python -c "import nsist; print(nsist.find_makensis_win())") -join "`n"
 Write-Output "Project built. To package the project, run:"
-Write-Output "      & '$makensisPath' .\build\nsis\installer.nsi\"
+Write-Output "      & '$makensisPath' .\build\nsis\installer.nsi"

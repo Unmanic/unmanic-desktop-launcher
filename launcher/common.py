@@ -19,6 +19,10 @@ if os.name == "nt":
 node_path = 'node'
 if os.name == "nt":
     node_path = os.path.join(project_root, 'node')
+# Set path to GIT executables
+git_path = 'git'
+if os.name == "nt":
+    git_path = os.path.join(project_root, 'git')
 
 
 def exec_process(subprocess_command: list):

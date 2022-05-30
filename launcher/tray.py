@@ -35,6 +35,7 @@ from . import common
 if os.name == "nt":
     os.environ['PATH'] += ';' + common.ffmpeg_path
     os.environ['PATH'] += ';' + common.node_path
+    os.environ['PATH'] += ';' + common.git_path
 
 
 class UnmanicLauncher:
