@@ -22,7 +22,7 @@ if os.name == "nt":
 # Set path to GIT executables
 git_path = 'git'
 if os.name == "nt":
-    git_path = os.path.join(project_root, 'git')
+    git_path = os.path.join(project_root, 'git', 'cmd')
 
 
 def exec_process(subprocess_command: list):
