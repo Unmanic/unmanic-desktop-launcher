@@ -40,6 +40,8 @@ class Window(QtWidgets.QMainWindow):
         thread.start()
 
     def exec_threaded_subprocess(self, pip_install_command):
+        # Disable button
+        self.ui.add_button.setEnabled(False)
         # Exec subprocess
         proc, sp = common.exec_process(pip_install_command)
         while True:
@@ -50,6 +52,8 @@ class Window(QtWidgets.QMainWindow):
             # Check if the command has completed. If it has, exit the loop
             if text == '' and sp.poll() is not None:
                 break
+        # Re-enable button
+        self.ui.add_button.setEnabled(True)
 
 
 def show_window():
