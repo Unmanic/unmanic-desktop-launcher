@@ -1,8 +1,8 @@
 $projectPath = (get-item $PSScriptRoot ).parent.FullName
 
 # CONFIG
-$ffmpegVersion = "4.4.1-3"
-$ffmpegUrl = "https://repo.jellyfin.org/releases/server/windows/versions/jellyfin-ffmpeg/4.4.1-3/jellyfin-ffmpeg_4.4.1-3-windows_win64.zip"
+$ffmpegVersion = "6.0.1-8"
+$ffmpegUrl = "https://repo.jellyfin.org/files/ffmpeg/windows/latest-6.x/win64/jellyfin-ffmpeg_6.0.1-8-portable_win64.zip"
 $nodeVersion = "16.15.0"
 $nodeUrl = "https://nodejs.org/dist/v$nodeVersion/node-v$nodeVersion-win-x64.zip"
 $gitVersion = "2.36.1"
