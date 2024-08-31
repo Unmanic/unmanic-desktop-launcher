@@ -112,7 +112,7 @@ class UnmanicLauncher:
     def check_unmanic_installed(self):
         """Check if Unmanic is installed"""
         command = [
-            common.python_exe, '-c',
+            common.python_exe, '-W', 'ignore::DeprecationWarning', '-c',
             'import pkg_resources; import json; print(json.dumps([pkg.key for pkg in pkg_resources.working_set]))'
         ]
         proc, sp = common.exec_process(command)
