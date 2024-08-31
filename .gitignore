@@ -1,4 +1,5 @@
 # Ignore build environments
+tmp/**
 venv/**
 build/**
 dist/**

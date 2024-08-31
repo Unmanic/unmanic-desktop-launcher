@@ -14,13 +14,17 @@ Run the executable
 
 ### Setup build environment
 
-#### Install Python 3.7 
+#### Install Python 3.12
 From the [windows store](https://www.microsoft.com/p/python-37/9nj46sx7x90p)
 Or installation via another means.
 
 #### Install nsis v3
 https://nsis.sourceforge.io/Download
 
+#### Install other tools with powershell script
+```
+scripts\install-tools.ps1
+```
 
 ### Build project
 To build the project, run:
