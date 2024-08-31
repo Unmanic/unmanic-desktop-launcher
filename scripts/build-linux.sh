@@ -36,7 +36,7 @@ popd &>/dev/null || exit
 # Set project version
 echo "Set project version"
 pushd "${project_path}" &>/dev/null || exit
-sem_ver=$(build/tools/gitversion/gitversion /showvariable SemVer)
+sem_ver=$(build/tools/gitversion/gitversion /showvariable MajorMinorPatch)
 echo "${sem_ver}" >launcher/version.txt
 popd &>/dev/null || exit
 
@@ -57,5 +57,5 @@ popd &>/dev/null || exit
 # Pack project
 echo "Pack project v${sem_ver}"
 pushd "${project_path}/build" &>/dev/null || exit
-python3 -m python_appimage build app -p 3.8 appimage/
+python3 -m python_appimage build app -p 3.11 appimage/
 popd &>/dev/null || exit

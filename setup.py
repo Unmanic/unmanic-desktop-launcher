@@ -26,7 +26,7 @@ setuptools.setup(
         "Code":          "https://github.com/Unmanic/unmanic-launcher/",
         "Issue tracker": "https://github.com/Unmanic/unmanic-launcher/issues",
     },
-    python_requires='>=3.8',
+    python_requires='>=3.11',
     install_requires=requirements(),
     platforms='Unix-like',
     package_data={'launcher': ['*.py', 'version.txt']},

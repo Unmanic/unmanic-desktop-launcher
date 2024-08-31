@@ -87,10 +87,10 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v3
         with:
-          # Build AppImage with Python 3.8 (same as the output will be)
-          python-version: 3.8
+          # Build AppImage with Python 3.11 (same as the output will be)
+          python-version: 3.11
       - name: Display Python version
-        run: python --version
+        run: python3 --version
 
       # Restore build dependencies cache
       - name: Restore build dependencies cache
@@ -105,7 +105,7 @@ jobs:
       - name: Install build dependencies
         run: |
           ./scripts/install-tools-linux.sh
-          sudo apt-get install -y pkg-config libcairo2-dev gcc python3-dev libgirepository1.0-dev
+          sudo apt-get install -y pkg-config libcairo2-dev gcc python3-dev python3-pip python3-venv libgirepository1.0-dev
 
       # Execute project build script
       - name: Build
