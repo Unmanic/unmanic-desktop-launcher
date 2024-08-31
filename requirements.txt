@@ -7,14 +7,14 @@ wheel>=0.37.1
 
 # Packages for tray icon and windows
 # - Required
-pystray==0.19.3
-pyqt5==5.15.6
+pystray==0.19.5
+pyqt5==5.15.11
 pyqt5-qt5==5.15.2
-pyqt5-sip==12.9.0
-psutil==5.8.0
-requests>=2.25.1
+pyqt5-sip==12.15.0
+psutil~=6.0.0
+requests>=2.28.2
 
 # Unmanic dependencies that require compilation
 # - Required
 peewee>=3.14.4
-peewee_migrate==1.1.6
+peewee_migrate==1.6.1
