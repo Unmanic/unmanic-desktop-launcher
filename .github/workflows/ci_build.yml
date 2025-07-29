@@ -16,7 +16,7 @@ jobs:
     steps:
       # Checkout the full history (required for GitVersion to work)
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -34,7 +34,7 @@ jobs:
 
       # Install Python
       - name: Set up Python
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v5
         with:
           python-version: 3.12
       - name: Display Python version
@@ -42,7 +42,7 @@ jobs:
 
       # Restore build dependencies cache
       - name: Restore build dependencies cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: build/dependencies
           key: ${{ runner.os }}-build-dependencies-win-${{ hashFiles('build\dependencies\**') }}
@@ -66,26 +66,26 @@ jobs:
           New-Item dist -ItemType Directory
           Move-Item -Path build\nsis\UnmanicLauncher*.exe -Destination dist
           $semVer | Out-File dist\VERSION.txt
-          Write-Output "::set-output name=BUILD_VERSION::$semVer"
+          "BUILD_VERSION=$semVer" >> $env:GITHUB_OUTPUT
 
       # Publish artifacts built in this pipeline
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: UnmanicLauncher-Windows
           path: dist/
 
   BuildAppImage:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       # Checkout the full history (required for GitVersion to work)
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       # Install Python
       - name: Set up Python
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v5
         with:
           # Build AppImage with Python 3.11 (same as the output will be)
           python-version: 3.11
@@ -94,7 +94,7 @@ jobs:
 
       # Restore build dependencies cache
       - name: Restore build dependencies cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: build/dependencies
           key: ${{ runner.os }}-build-dependencies-lin-${{ hashFiles('build/dependencies/**') }}
@@ -119,10 +119,10 @@ jobs:
           mkdir -p dist
           mv -v build/UnmanicLauncher-x86_64.AppImage dist/UnmanicLauncher-${semVer}-x86_64.AppImage
           echo "${semVer}" > dist/VERSION.txt
-          echo "::set-output name=BUILD_VERSION::${semVer}"
+          echo "BUILD_VERSION=${semVer}" >> "$GITHUB_OUTPUT"
 
       # Publish artifacts built in this pipeline
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: UnmanicLauncher-AppImages
           path: dist/
@@ -134,13 +134,13 @@ jobs:
     steps:
       # Fetch Windows artifacts
       - name: Download AppImage Artifacts
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: UnmanicLauncher-Windows
           path: ./windows/
       # Fetch AppImage artifacts
       - name: Download AppImage Artifacts
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: UnmanicLauncher-AppImages
           path: ./appimages/
@@ -156,10 +156,10 @@ jobs:
           find ./appimages/ -type f -name "VERSION.txt" -exec cp -fn {} ./dist/ \;
           ls -l ./dist/
           semVer=$(cat ./dist/VERSION.txt)
-          echo "::set-output name=BUILD_VERSION::${semVer}"
+          echo "BUILD_VERSION=${semVer}" >> "$GITHUB_OUTPUT"
 
       - name: Release
-        uses: marvinpinto/action-automatic-releases@latest
+        uses: marvinpinto/action-automatic-releases@d68defdd11f9dcc7f52f35c1b7c236ee7513bcc1 #v1.2.1
         with:
           automatic_release_tag: v${{ steps.dist-data-step.outputs.BUILD_VERSION }}
           title: Release v${{ steps.dist-data-step.outputs.BUILD_VERSION }}
