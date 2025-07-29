@@ -17,4 +17,4 @@ requests>=2.28.2
 # Unmanic dependencies that require compilation
 # - Required
 peewee>=3.14.4
-peewee_migrate==1.6.1
+peewee_migrate==1.13.0

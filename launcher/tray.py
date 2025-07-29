@@ -113,14 +113,22 @@ class UnmanicLauncher:
         """Check if Unmanic is installed"""
         command = [
             common.python_exe, '-W', 'ignore::DeprecationWarning', '-c',
-            'import pkg_resources; import json; print(json.dumps([pkg.key for pkg in pkg_resources.working_set]))'
+            (
+                'import json, importlib.metadata; '
+                'print(json.dumps([d.metadata["Name"].lower() for d in importlib.metadata.distributions()]))'
+            )
         ]
         proc, sp = common.exec_process(command)
         self.other_procs.append(proc)
-        text = ' '.join(sp.stdout.readlines())
-        installed_packages = json.loads(text)
-        if 'unmanic' in installed_packages:
-            return True
+        try:
+            lines = sp.stdout.readlines()
+            text = ' '.join(lines)
+            installed_packages = json.loads(text)
+            return 'unmanic' in installed_packages
+        except (json.JSONDecodeError, AttributeError) as e:
+            print(f"Failed to detect Unmanic installation: {e}")
+        except Exception as e:
+            print(f"Unexpected error while checking for Unmanic: {e}")
         return False
 
     def start_unmanic(self):
